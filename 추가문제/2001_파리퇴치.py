@@ -9,19 +9,19 @@ M x M 크기의 파리채를 한 번 내리쳐 최대한 많은 파리를 죽이
 '''
 test_case = int(input())
 
-for tc in range(1, test_case+1):
+for tc in range(1, test_case + 1):
     N, M = map(int, input().split())
     board = [list(map(int, input().split())) for _ in range(N)]
-    
+
     max_sum = 0
-    #검색할 인덱스 범위 설정(시작점)
-    for i in range(N-M+1):
-        for j in range(N-M+1):
+    # 검색할 인덱스 범위 설정(시작점)
+    for i in range(N - M + 1):
+        for j in range(N - M + 1):
             sum = 0
-            #시작점으로부터 가로세로 M만큼 요소 합산
+            # 시작점으로부터 가로세로 M만큼 요소 합산
             for k in range(M):
                 for l in range(M):
-                    sum += board[i+k][j+l]
+                    sum += board[i + k][j + l]
             if sum > max_sum:
                 max_sum = sum
     print(f'#{tc} {max_sum}')

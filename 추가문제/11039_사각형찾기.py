@@ -6,10 +6,34 @@ test_case = int(input())
 
 for tc in range(1, test_case+1):
     N = int(input())
-    board = [list(map(int, input().split())) for _ in range(N)]
-    box = 0
-    for i in range(N):
-        for j in range(N):
+    board = [ list(map(int, input().split())) for _ in range(N) ]
+
+    #방향판 - 상하좌우
+    di = [-1,1,0,0]
+    dj = [0,0,-1,1]
+    max_area = 0
+    for i in range(10):
+        for j in range(10):
             if board[i][j] == 1:
-                pass
-    print(f'#{tc} {board}')
+                x, y = 1, 1
+                while board[i][j] != 0:
+                    i += -1
+                    if 0<= i < 10 and board[i][j] == 1:
+                        x += 1
+                while board[i][j] != 0:
+                    i += 1
+                    if 0<= i < 10 and board[i][j] == 1:
+                        x += 1
+                while board[i][j] != 0:
+                    j += -1
+                    if 0<= j < 10 and board[i][j] == 1:
+                        y += 1
+                while board[i][j] != 0:
+                    j += 1
+                    if 0 <= j < 10 and board[i][j] == 1:
+                        y += 1
+                area = x * y
+                if area > max_area:
+                    max_area = area
+
+    print(f'#{tc} {max_area}')

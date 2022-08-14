@@ -6,46 +6,32 @@ test_case = int(input())
 for tc in range(1, test_case+1):
     N = int(input())
     board = [[0]*10 for _ in range(10)]
-    red = []
-    d_red = 0
-    blue = []
-    d_blue = 0
-    for _ in range(N):
-        x1,y1,x2,y2,color = map(int, input().split())
-        if color == 1:
-            if not red:
-                red.append([x1,y1,x2,y2])
-                d_red += ((x2-x1+y2-y1+2)*2)
-            else:
-                for i in range(len(red)):
-                    if (red[i][0] <= x1 <= red[i][2] and red[i][1] <= y1 <= red[i][3]) and (red[i][0] <= x2 <= red[i][2] and red[i][1] <= y2 <= red[i][3]):
-                        pass
-                    elif (red[i][0] <= x1 <= red[i][2] and red[i][1] <= y1 <= red[i][3]):
-                        red.append([x1,y1,x2,y2])
-                        d_red += ((red[i][0]-x2+red[i][1]-y2+2)*2)
-                    elif (red[i][0] <= x2 <= red[i][2] and red[i][1] <= y2 <= red[i][3]):
-                        red.append([x1,y1,x2,y2])
-                        d_red += ((x1-red[i][1]+y1-red[i][3]+2)*2)
-                    else:
-                        red.append([x1,y1,x2,y2])
-                        d_red += ((x2-x1+y2-y1+2)*2)
-        else:
-            if not blue:
-                blue.append([x1,y1,x2,y2])
-                d_blue += ((x2-x1+y2-y1+2)*2)
-            else:
-                for i in range(len(blue)):
-                    if (blue[i][0] <= x1 <= blue[i][2] and blue[i][1] <= y1 <= blue[i][3]) and (blue[i][0] <= x2 <= blue[i][2] and blue[i][1] <= y2 <= blue[i][3]):
-                        pass
-                    elif (blue[i][0] <= x1 <= blue[i][2] and blue[i][1] <= y1 <= blue[i][3]):
-                        blue.append([x1,y1,x2,y2])
-                        d_blue += ((blue[i][0]-x2+blue[i][1]-y2+2)*2)
-                    elif (blue[i][0] <= x2 <= blue[i][2] and blue[i][1] <= y2 <= blue[i][3]):
-                        blue.append([x1,y1,x2,y2])
-                        d_blue += ((x1-blue[i][1]+y1-blue[i][3]+2)*2)
-                    else:
-                        blue.append([x1,y1,x2,y2])
-                        d_blue += ((x2-x1+y2-y1+2)*2)
-        
 
-    print(f'#{tc} {d_red+d_blue}')
+    #보드 만들기
+    for _ in range(N):
+        x1, y1, x2, y2, color = map(int, input().split())
+        # 각 범위별 color값을 합친다.
+        for i in range(x1, x2 + 1):
+            for j in range(y1, y2 + 1):
+                board[i][j] += color
+
+    #방향판 - 상하좌우
+    di = [-1,1,0,0]
+    dj = [0,0,-1,1]
+
+    cnt = 0
+    for i in range(10):
+        for j in range(10):
+            if (board[i][j] == 1) or (board[i][j] == 2):
+                side = 4
+                for k in range(4):
+                    ni = i + di[k]
+                    nj = j + dj[k]
+                    # 우선 유효 범위 안에 들어있는지?
+                    if 0<= ni < 10 and 0<= nj < 10:
+                        #만약 근처 값이 같은색이라면 변이 삭제됨. 다른 색은 상관없음.
+                        if board[ni][nj] == board[i][j]:
+                            side -= 1
+                cnt += side
+
+    print(f'#{tc} {cnt}')

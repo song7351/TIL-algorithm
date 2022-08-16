@@ -9,26 +9,39 @@ N X N 크기의 단어 퍼즐을 만들려고 한다. 입력으로 단어 퍼즐
 test_case = int(input())
 
 for tc in range(1, test_case + 1):
-    N, K = int(input().split())
-    board = [ list(map(int, input())) for _ in range(N) ]
+    N, K = map(int, input().split())
+    board = [list(map(int, input().split())) for _ in range(N)]
     check = []
-    for i in range(N-1):
+    ans = 0
+
+    for i in range(N):
         r_cnt = 1
         c_cnt = 1
-        for j in range(N-1):
-            if board[i][j] == 1 and board[i][j+1] == 1:
-                r_cnt += 1
-            elif board[i][j] == 1 and board[i][j+1] == 0 and r_cnt == K:
+        for j in range(N - 1):
+            # 가로확인
+            # 지금도 1이고 다음도 1이라면?
+            if board[i][j] == 1 and board[i][j + 1] == 1:
+                r_cnt += 1  # 길이는 +1
+                if j == N - 2:
                     check.append(r_cnt)
                     r_cnt = 1
-            if board[j][i] == 1 and board[j+1][i] == 1:
-                c_cnt += 1
-            elif board[j][i] == 1 and board[j][i+1] == 0 and c_cnt == K:
+            elif board[i][j] == 1 and board[i][j + 1] == 0:
+                check.append(r_cnt)
+                r_cnt = 1
+
+            # 세로확인
+            # 지금도 1이고 다음도 1이라면?
+            if board[j][i] == 1 and board[j + 1][i] == 1:
+                c_cnt += 1  # 길이는 +1
+                if j == N - 2:
                     check.append(c_cnt)
                     c_cnt = 1
+            elif board[j][i] == 1 and board[j + 1][i] == 0:
+                check.append(c_cnt)
+                c_cnt = 1
 
-    cnt = 0
     for i in check:
         if i == K:
-            cnt += 1
-    print(f'#{tc} {cnt}')
+            ans += 1
+
+    print(f'#{tc} {ans}')

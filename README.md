@@ -1,3 +1,3 @@
 # TIL-algorithm-python
 
-##### SWEA solving club solved(1)
+##### SWEA solving club solved(2)

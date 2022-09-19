@@ -8,7 +8,6 @@
 #            [5]]         # 6
 
 def dfs(v, N):
-
     top = -1
     print(v)            # 방문
     visited[v] = 1      # 시작점 방문 표시

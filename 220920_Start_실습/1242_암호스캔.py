@@ -30,8 +30,8 @@ for tc in range(1, test_case + 1):
 
     N,M = map(int, input().split())
     arr = [list(map(str,input())) for _ in range(N)]    # 전체 2차원 배열(16진수)
-    if tc != 9:
-        continue
+    #if tc != 9:
+    #    continue
     #print(N, M)
     arr2= [[] for _ in range(N)]                        # 전체 2차원 배열(2진수)
     chg_bin()                                           # 16진수 -> 2진수
